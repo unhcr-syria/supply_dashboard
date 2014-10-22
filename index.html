@@ -54,14 +54,13 @@
 
   <!-- design page layout with bootsrap -->
 
-<div style="display: block; text-align:center" class="container" id="dashboard">
+<div  class="container" id="dashboard">
         <div class="row">
         
         <div class="col-md-8">
-           <h1><strong>Iraq Supply Pipeline</strong></h1>
+           <h1><strong>Shelter  / NFI cluster - Iraq</strong></h1>
            <h5>Click on any of the graphs below to filter and slice the data.</h5>
         </div>
-
 
         <div style="text-align:center" class="col-md-4">
           <img src="images/logo.png" >
@@ -158,30 +157,20 @@ ds.fetch({
         var cf = crossfilter(spreadsheetdata);
 
 //declare crossfilter dimensions to be used in charts
-        cf.targetpop = cf.dimension(function (d) {
-          return d.Target_Population;
-        });
+        cf.targetpop = cf.dimension(function (d) { return d.Target_Population; });
 
-        cf.op = cf.dimension(function (d) {
-          return d.Operation;
-        });
+        cf.op = cf.dimension(function (d) { return d.Operation; });
 
-        cf.item = cf.dimension(function (d) {
-          return d.Item;
-        });
+        cf.item = cf.dimension(function (d) { return d.Item;});
 
-        cf.status = cf.dimension(function (d) {
-          return d.Status;
-        });
+        cf.status = cf.dimension(function (d) { return d.Status; });
 
-        cf.location = cf.dimension(function (d) {
-            return d.Location;
-        });
+        cf.location = cf.dimension(function (d) {return d.Location; });
 
 //group by dimensions
         var targetpop = cf.targetpop.group();
         var op = cf.op.group();
-        // var date = cf.date.group();
+      //  var date = cf.date.group();
         var item = cf.item.group();
         var status = cf.status.group();
         var location = cf.location.group();
@@ -214,7 +203,7 @@ ds.fetch({
         });
 
 //parse date from data array
-        var parseDate = d3.time.format("%Y-%m-%d").parse;
+        var parseDate = d3.time.format("%Y-%d-%m").parse;
         spreadsheetdata.forEach(function(d) {
             d.date = parseDate(d.Date);
             d.month = d3.time.month(d.date);
@@ -320,7 +309,7 @@ ds.fetch({
       // Item quantity chart
       itm_qty_chart
                 .width(400)
-                .height(600)
+                .height(550)
                 .dimension(cf.item)
                 .on("filtered", getFiltersValues)
                 .group(item_total_quantity = item_total_quantity || 0)
@@ -370,7 +359,7 @@ ds.fetch({
 
       // Timeline bar chart
       proc_trend_chart
-                .height(250)
+                .height(200)
                 .width(750)
                 .renderHorizontalGridLines(true)
                 .dimension(datedimension)
